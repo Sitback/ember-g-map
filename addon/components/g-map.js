@@ -36,8 +36,16 @@ export default Ember.Component.extend({
     }
     this.setZoom();
     this.setCenter();
+    this.setOnCenterChange();
     if (this.get('shouldFit')) {
       this.fitToMarkers();
+    }
+  },
+
+  setOnCenterChange() {
+    const map = this.get('map');
+    if (isPresent(map)) {
+      map.addListener('center_changed', () => this.sendAction('onCenterChanged'));
     }
   },
 
