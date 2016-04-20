@@ -36,19 +36,19 @@ export default Ember.Component.extend({
     }
     this.setZoom();
     this.setCenter();
-    this.setOnCenterChange();
+    this.setOnBoundsChanged();
     if (this.get('shouldFit')) {
       this.fitToMarkers();
     }
   },
 
-  setOnCenterChange() {
+  setOnBoundsChanged() {
     const map = this.get('map');
     if (isPresent(map)) {
-      map.addListener('center_changed', () => this.sendAction('onCenterChanged'));
+      map.addListener('bounds_changed', () => this.sendAction('onBoundsChanged'));
     }
   },
-
+  
   permittedOptionsChanged: observer('permittedOptions', function() {
     run.once(this, 'setOptions');
   }),
